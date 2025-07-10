@@ -319,9 +319,9 @@ namespace PerformanceCalculatorGUI.Screens
 
                         var parsedScore = new ProcessorScoreDecoder(working).Parse(scoreInfo);
 
-                        var difficultyCalculator = rulesetInstance.CreateDifficultyCalculator(working);
+                        var difficultyCalculator = RulesetHelper.GetExtendedDifficultyCalculator(ruleset.Value, working, mods);
                         var difficultyAttributes = difficultyCalculator.Calculate(mods);
-                        var performanceCalculator = rulesetInstance.CreatePerformanceCalculator();
+                        var performanceCalculator = RulesetHelper.GetPerformanceCalulator(ruleset.Value, mods);
 
                         double? livePp = score.PP;
                         var perfAttributes = performanceCalculator?.Calculate(parsedScore.ScoreInfo, difficultyAttributes);

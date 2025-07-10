@@ -643,9 +643,8 @@ namespace PerformanceCalculatorGUI.Screens
             if (working is null)
                 return;
 
-            var rulesetInstance = ruleset.Value.CreateInstance();
-            difficultyCalculator.Value = RulesetHelper.GetExtendedDifficultyCalculator(ruleset.Value, working);
-            performanceCalculator = rulesetInstance.CreatePerformanceCalculator();
+            difficultyCalculator.Value = RulesetHelper.GetExtendedDifficultyCalculator(ruleset.Value, working, appliedMods.Value);
+            performanceCalculator = RulesetHelper.GetPerformanceCalulator(ruleset.Value, appliedMods.Value);
         }
 
         private void calculateDifficulty()

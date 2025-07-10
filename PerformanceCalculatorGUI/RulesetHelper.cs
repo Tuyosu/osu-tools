@@ -7,30 +7,48 @@ using System.Linq;
 using osu.Game.Beatmaps;
 using osu.Game.Rulesets;
 using osu.Game.Rulesets.Catch;
+using osu.Game.Rulesets.Catch.Difficulty;
 using osu.Game.Rulesets.Catch.Objects;
 using osu.Game.Rulesets.Difficulty;
 using osu.Game.Rulesets.Mania;
+using osu.Game.Rulesets.Mania.Difficulty;
 using osu.Game.Rulesets.Mania.Objects;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.Osu;
+using osu.Game.Rulesets.Osu.Difficulty;
+using osu.Game.Rulesets.Osu.Mods;
 using osu.Game.Rulesets.Osu.Objects;
 using osu.Game.Rulesets.Scoring;
 using osu.Game.Rulesets.Taiko;
+using osu.Game.Rulesets.Taiko.Difficulty;
 using osu.Game.Rulesets.Taiko.Objects;
+using RelaxPerformanceCalculator = osu.Game.Rulesets.Osu.Difficulty.Relax.OsuPerformanceCalculator;
 
 namespace PerformanceCalculatorGUI
 {
     public static class RulesetHelper
     {
-        public static DifficultyCalculator GetExtendedDifficultyCalculator(RulesetInfo ruleset, IWorkingBeatmap working)
+        public static DifficultyCalculator GetExtendedDifficultyCalculator(RulesetInfo ruleset, IWorkingBeatmap working, IReadOnlyList<Mod> mods)
         {
             return ruleset.OnlineID switch
             {
-                0 => new ExtendedOsuDifficultyCalculator(ruleset, working),
+                0 => mods.Any(m => m is OsuModRelax) ? new ExtendedRelaxDifficultyCalculator(ruleset, working) : new ExtendedOsuDifficultyCalculator(ruleset, working),
                 1 => new ExtendedTaikoDifficultyCalculator(ruleset, working),
                 2 => new ExtendedCatchDifficultyCalculator(ruleset, working),
                 3 => new ExtendedManiaDifficultyCalculator(ruleset, working),
                 _ => ruleset.CreateInstance().CreateDifficultyCalculator(working)
+            };
+        }
+
+        public static PerformanceCalculator GetPerformanceCalulator(RulesetInfo ruleset, IReadOnlyList<Mod> mods)
+        {
+            return ruleset.OnlineID switch
+            {
+                0 => mods.Any(m => m is OsuModRelax) ? new RelaxPerformanceCalculator() : new OsuPerformanceCalculator(),
+                1 => new TaikoPerformanceCalculator(),
+                2 => new CatchPerformanceCalculator(),
+                3 => new ManiaPerformanceCalculator(),
+                _ => ruleset.CreateInstance().CreatePerformanceCalculator()
             };
         }
 
