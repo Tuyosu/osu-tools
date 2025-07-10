@@ -1,5 +1,8 @@
 # osu!tools
 
+### !!! These tools were made by the osu!lazer team. We at Tuyosu only forked them to work with our APIs. !!!
+### For anyone that doesn't care about Tuyosu, the original repo is [here](https://github.com/ppy/osu-tools).
+
 [![Build status](https://github.com/ppy/osu-tools/actions/workflows/ci.yml/badge.svg?branch=master&event=push)](https://github.com/ppy/osu-tools/actions/workflows/ci.yml)
 [![CodeFactor](https://www.codefactor.io/repository/github/ppy/osu-tools/badge)](https://www.codefactor.io/repository/github/ppy/osu-tools) 
 [![dev chat](https://discordapp.com/api/guilds/188630481301012481/widget.png?style=shield)](https://discord.gg/ppy)
@@ -19,25 +22,10 @@ This is part of a group of projects which are used in live deployments where the
 # Getting Started
 
 ## I just want to run it
-- Clone the repository (`git clone https://github.com/ppy/osu-tools`)
+- Clone the repository (`git clone --recursive https://github.com/Tuyosu/osu-tools`)
 - Navigate to each tool's directory (i.e. `cd PerformanceCalculator`) and follow the instructions listed in the tool's README.
     - [PerformanceCalculator](https://github.com/ppy/osu-tools/blob/master/PerformanceCalculator/README.md) - A tool for calculating the difficulty of beatmaps and the performance of replays.
     - [PerformanceCalculatorGUI](https://github.com/ppy/osu-tools/blob/master/PerformanceCalculatorGUI/README.md) - A GUI tool for calculating the difficulty of beatmaps, changes in profile scores and leaderboards.
-
-## I want to make changes
-Most relevant code is in the main [ppy/osu](https://github.com/ppy/osu) repository. To make any meaningful changes you will likely need to edit that as well.
-
-- Clone all relevant repos into the same directory 
-```shell
-git clone https://github.com/ppy/osu-tools
-git clone https://github.com/ppy/osu
-```
-- If you're planning to work on the difficulty and/or performance calculation changes you will need to use the `pp-dev` branch of the `osu` repository
-```shell
-cd osu
-git checkout -b pp-dev origin/pp-dev
-```
-- Run the `./UseLocalOsu.ps1` powershell script (or `./UseLocalOsu.sh`) to use your local copy of ppy/osu
 
 ### Code analysis
 
@@ -46,23 +34,6 @@ Before committing your code, please run a code formatter. This can be achieved b
 We have adopted some cross-platform, compiler integrated analyzers. They can provide warnings when you are editing, building inside IDE or from command line, as-if they are provided by the compiler itself.
 
 JetBrains ReSharper InspectCode is also used for wider rule sets. You can run it from PowerShell with `.\InspectCode.ps1`. Alternatively, you can install ReSharper or use Rider to get inline support in your IDE of choice.
-
-## I want to run someone else's changes
-
-- Clone all relevant repos into the same directory 
-```shell
-git clone https://github.com/ppy/osu-tools
-git clone https://github.com/ppy/osu
-```
-- Navigate to `osu` repository and [checkout](https://stackoverflow.com/a/14383288) version you want to run
-```shell
-cd osu
-git remote add smoogi https://github.com/smoogipoo/osu.git
-git fetch smoogi branch_name
-git checkout -b branch_name smoogi/branch_name
-```
-- Run the `./UseLocalOsu.ps1` powershell script (or `./UseLocalOsu.sh`) to use your local copy of ppy/osu
-
 
 # Contributing
 
